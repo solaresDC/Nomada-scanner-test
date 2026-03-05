@@ -388,7 +388,7 @@ html, body {
 
 /* ── Scanner Footer ────────────────────────── */
 .scanner-footer {
-  padding: 8px 12px 2px;
+  padding: 8px 12px 6px;
   /*padding-bottom: calc(1px + env(safe-area-inset-bottom, 0px));*/
   background: #111;
   border-top: 1px solid #222;
