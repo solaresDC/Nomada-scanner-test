@@ -11,6 +11,7 @@
   padding: 0;
 }
 
+
 html, body {
   height: 100%;
   overflow: hidden;            /* Prevent page scroll — we handle everything */
@@ -18,6 +19,12 @@ html, body {
   background: #0a0a0a;
   color: #ffffff;
   -webkit-tap-highlight-color: transparent;
+  /* Prevent text selection and long-press popups - three lines below */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  /* Prevent double-tap zoom - line below */
+  touch-action: manipulation;
 }
 
 /* ── Screen Switching ──────────────────────── */
@@ -399,6 +406,7 @@ html, body {
 .mini-history {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   font-size: 0.75rem;
   color: #aaa;
