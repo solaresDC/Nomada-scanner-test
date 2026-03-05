@@ -387,7 +387,7 @@ html, body {
 /* ── Scanner Footer ────────────────────────── */
 .scanner-footer {
   padding: 8px 12px;
-  padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(1px + env(safe-area-inset-bottom, 0px));
   background: #111;
   border-top: 1px solid #222;
   flex-shrink: 0;
@@ -555,7 +555,7 @@ html, body {
   font-size: 0.72rem;
   line-height: 1.3;
 }
-fixing rows location in view full history
+
 .history-num {
   color: #555;
   text-align: right;
