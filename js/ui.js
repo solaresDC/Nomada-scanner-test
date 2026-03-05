@@ -22,6 +22,9 @@ let handPreference = localStorage.getItem('scanner-hand') || 'R';
 // ─── Callback for when scan result is dismissed ───────────
 let onDismissCallback = null;
 
+// ─── Previous ticket count (for tracking new additions) ───
+let previousTicketCount = 0;
+
 /**
  * Initialize the UI module.
  * @param {Function} onDismiss — called when the door person taps "Next"
@@ -407,7 +410,13 @@ async function handleRefresh() {
   if (refreshBtn) refreshBtn.classList.remove('spinning');
 
   if (count >= 0 && refreshStatus) {
-    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCountAdded')}`;
+    const added = count - previousTicketCount;
+    if (added > 0) {
+      refreshStatus.textContent = `+${added} ${getText('ticketCountAdded')}`;
+    } else {
+      refreshStatus.textContent = getText('refreshDone');
+    }
+    previousTicketCount = count;
     setTimeout(() => {
       refreshStatus.classList.remove('visible');
     }, 2000);
@@ -426,7 +435,13 @@ async function handleRefresh() {
 function onTicketRefresh(count) {
   const refreshStatus = document.getElementById('refresh-status');
   if (refreshStatus) {
-    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCountAdded')}`;
+    const added = count - previousTicketCount;
+    if (added > 0) {
+      refreshStatus.textContent = `+${added} ${getText('ticketCountAdded')}`;
+    } else {
+      refreshStatus.textContent = getText('refreshDone');
+    }
+    previousTicketCount = count;
     refreshStatus.classList.add('visible');
     setTimeout(() => refreshStatus.classList.remove('visible'), 2000);
   }

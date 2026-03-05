@@ -95,7 +95,10 @@ async function startScanningMode() {
     return;
   }
 
-  // Show ticket count
+  // Set the initial count so future refreshes can calculate the difference
+  previousTicketCount = count >= 0 ? count : 0;
+
+  // Show ticket count briefly
   const refreshStatus = document.getElementById('refresh-status');
   if (refreshStatus && count >= 0) {
     refreshStatus.textContent = `${count} ${getText('ticketCount')}`;

@@ -27,7 +27,7 @@ const TRANSLATIONS = {
     refreshing: 'Updating...',
     refreshDone: 'Updated',
     ticketCount: 'tickets',
-    ticketCountAdded: 'tickets loaded',
+    ticketCountAdded: 'new tickets added',
     handLeft: 'L',
     handRight: 'R',
 
@@ -72,7 +72,7 @@ const TRANSLATIONS = {
     refreshing: 'Actualizando...',
     refreshDone: 'Actualizado',
     ticketCount: 'entradas',
-    ticketCountAdded: 'entradas cargadas',
+    ticketCountAdded: 'nuevas entradas agregadas',
     handLeft: 'I',
     handRight: 'D',
 
@@ -114,7 +114,7 @@ const TRANSLATIONS = {
     refreshing: 'Atualizando...',
     refreshDone: 'Atualizado',
     ticketCount: 'ingressos',
-    ticketCountAdded: 'ingressos carregados',
+    ticketCountAdded: 'novos ingressos adicionados',
     handLeft: 'E',
     handRight: 'D',
 
