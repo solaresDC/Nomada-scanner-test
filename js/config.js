@@ -24,7 +24,7 @@ const CONFIG = {
 
   // ── Scanner Settings ────────────────────────────────────────
   // Frames per second for QR scanning (higher = faster detection, more battery)
-  SCAN_FPS: 15,
+  SCAN_FPS: 20,
 
   // Size of the QR scanning box relative to the camera view (0.0 to 1.0)
   SCAN_BOX_SIZE: 0.55,

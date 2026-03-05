@@ -331,6 +331,10 @@ function applyLanguage() {
   const histTitle = document.getElementById('history-panel-title');
   if (histTitle) histTitle.textContent = getText('historyTitle');
 
+  // Update history button text languge
+  const histBtn = document.getElementById('history-btn');
+  if (histBtn) histBtn.textContent = getText('historyTitle');
+
   // Update mini history
   updateMiniHistory();
 
