@@ -238,8 +238,20 @@ html, body {
 }
 
 /* Override html5-qrcode default styles */
+#scanner-viewfinder {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#scanner-viewfinder > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 #scanner-viewfinder video {
   object-fit: cover !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .scan-ready-text {
