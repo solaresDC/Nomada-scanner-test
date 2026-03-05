@@ -27,6 +27,7 @@ const TRANSLATIONS = {
     refreshing: 'Updating...',
     refreshDone: 'Updated',
     ticketCount: 'tickets',
+    ticketCountAdded: 'tickets loaded',
     handLeft: 'L',
     handRight: 'R',
 
@@ -71,6 +72,7 @@ const TRANSLATIONS = {
     refreshing: 'Actualizando...',
     refreshDone: 'Actualizado',
     ticketCount: 'entradas',
+    ticketCountAdded: 'entradas cargadas',
     handLeft: 'I',
     handRight: 'D',
 
@@ -112,6 +114,7 @@ const TRANSLATIONS = {
     refreshing: 'Atualizando...',
     refreshDone: 'Atualizado',
     ticketCount: 'ingressos',
+    ticketCountAdded: 'ingressos carregados',
     handLeft: 'E',
     handRight: 'D',
 
@@ -130,7 +133,7 @@ const TRANSLATIONS = {
     timeMinutes: 'm',
     timeHours: 'h',
     timeDayPlus: '24h+',
-    
+
     ticketCountRemaining: 'restantes',
     historyRemaining: 'Restantes',
   },

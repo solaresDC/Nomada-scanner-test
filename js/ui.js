@@ -407,7 +407,7 @@ async function handleRefresh() {
   if (refreshBtn) refreshBtn.classList.remove('spinning');
 
   if (count >= 0 && refreshStatus) {
-    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCount')}`;
+    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCountAdded')}`;
     setTimeout(() => {
       refreshStatus.classList.remove('visible');
     }, 2000);
@@ -426,7 +426,7 @@ async function handleRefresh() {
 function onTicketRefresh(count) {
   const refreshStatus = document.getElementById('refresh-status');
   if (refreshStatus) {
-    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCount')}`;
+    refreshStatus.textContent = `${getText('refreshDone')}: ${count} ${getText('ticketCountAdded')}`;
     refreshStatus.classList.add('visible');
     setTimeout(() => refreshStatus.classList.remove('visible'), 2000);
   }

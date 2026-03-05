@@ -385,6 +385,7 @@ html, body {
 /* ── Scanner Footer ────────────────────────── */
 .scanner-footer {
   padding: 10px 12px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
   background: #111;
   border-top: 1px solid #222;
   flex-shrink: 0;
@@ -525,7 +526,7 @@ html, body {
 }
 
 .history-counter-remaining {
-  color: #00d9ff;
+  color: #ffffff;
 }
 
 .history-breakdown {
@@ -539,16 +540,17 @@ html, body {
 .history-list {
   flex: 1;
   overflow-y: auto;
-  padding: 8px 12px;
+  padding: 8px 16px;
 }
 
 .history-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px;
+  gap: 6px;
+  padding: 8px 4px;
   border-bottom: 1px solid #1a1a1a;
   font-size: 0.78rem;
+  justify-content: center;
 }
 
 .history-num {
