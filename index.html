@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Nomada Scanner</title>
+  <link rel="stylesheet" href="css/scanner.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCREEN 1: PIN ENTRY
+       ═══════════════════════════════════════════════════════ -->
+  <div id="pin-screen" class="screen active">
+    <div class="pin-container">
+
+      <!-- Title -->
+      <h1 class="pin-title" id="pin-title">NOMADA</h1>
+      <p class="pin-subtitle" id="pin-subtitle">Scanner</p>
+
+      <!-- Prompt -->
+      <p class="pin-prompt" id="pin-prompt">Enter PIN to start</p>
+
+      <!-- PIN Dots -->
+      <div class="pin-dots" id="pin-dots">
+        <span class="pin-dot" id="pin-dot-0"></span>
+        <span class="pin-dot" id="pin-dot-1"></span>
+        <span class="pin-dot" id="pin-dot-2"></span>
+        <span class="pin-dot" id="pin-dot-3"></span>
+      </div>
+
+      <!-- Error Message -->
+      <p class="pin-error" id="pin-error"></p>
+
+      <!-- Number Pad -->
+      <div class="pin-pad">
+        <button class="pin-key" data-digit="1">1</button>
+        <button class="pin-key" data-digit="2">2</button>
+        <button class="pin-key" data-digit="3">3</button>
+        <button class="pin-key" data-digit="4">4</button>
+        <button class="pin-key" data-digit="5">5</button>
+        <button class="pin-key" data-digit="6">6</button>
+        <button class="pin-key" data-digit="7">7</button>
+        <button class="pin-key" data-digit="8">8</button>
+        <button class="pin-key" data-digit="9">9</button>
+        <button class="pin-key pin-key-action" data-action="backspace">&#9003;</button>
+        <button class="pin-key" data-digit="0">0</button>
+        <button class="pin-key pin-key-action" data-action="confirm">&#10003;</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCREEN 2: SCANNER
+       ═══════════════════════════════════════════════════════ -->
+  <div id="scanner-screen" class="screen">
+
+    <!-- Top Bar -->
+    <div class="scanner-topbar">
+      <!-- Refresh button (left) -->
+      <button class="topbar-btn" id="refresh-btn" aria-label="Refresh tickets">
+        &#x21BB;
+      </button>
+
+      <span class="topbar-title">NOMADA</span>
+
+      <!-- Language toggle (right) -->
+      <button class="topbar-btn" id="lang-toggle" aria-label="Change language">
+        EN
+      </button>
+
+      <!-- Hand preference toggle (far right) -->
+      <button class="topbar-btn" id="hand-toggle" aria-label="Switch hand preference">
+        R
+      </button>
+    </div>
+
+    <!-- Refresh status message -->
+    <div class="refresh-status" id="refresh-status"></div>
+
+    <!-- Camera Viewfinder -->
+    <div class="scanner-body">
+      <div id="scanner-viewfinder" class="scanner-viewfinder"></div>
+
+      <!-- Scan Ready Text (shown when camera is active, no result) -->
+      <p class="scan-ready-text" id="scan-ready-text">Ready to scan</p>
+
+      <!-- Scanner Error -->
+      <p class="scanner-error" id="scanner-error"></p>
+
+      <!-- Scan Result Overlay (covers the camera area) -->
+      <div class="scan-overlay" id="scan-overlay">
+        <span class="scan-overlay-text" id="scan-overlay-text"></span>
+      </div>
+
+      <!-- Dismiss/Next Button -->
+      <button class="dismiss-btn right-hand" id="dismiss-btn" aria-label="Next scan">
+        &#x21BB;
+      </button>
+    </div>
+
+    <!-- Mini History -->
+    <div class="scanner-footer">
+      <div class="mini-history" id="mini-history"></div>
+      <button class="history-btn" id="history-btn">View Full History</button>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HISTORY PANEL (Slide-Up Sheet)
+       ═══════════════════════════════════════════════════════ -->
+  <div class="history-panel" id="history-panel">
+    <div class="history-panel-header">
+      <h2 class="history-panel-title" id="history-panel-title">Scan History</h2>
+      <button class="history-close" id="history-close" aria-label="Close history">
+        &#x2715;
+      </button>
+    </div>
+
+    <!-- Counters -->
+    <div class="history-counters">
+      <div class="history-counter-block">
+        <span class="history-counter-label" id="history-admitted-label">Total Admitted</span>
+        <span class="history-counter-value" id="history-admitted-count">0</span>
+      </div>
+      <div class="history-counter-block">
+        <span class="history-counter-label" id="history-rejected-label">Rejected</span>
+        <span class="history-counter-value history-counter-rejected" id="history-rejected-count">0</span>
+      </div>
+    </div>
+    <div class="history-breakdown" id="history-breakdown"></div>
+
+    <!-- Scan List -->
+    <div class="history-list" id="history-list">
+      <p class="history-empty">No scans yet</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════ -->
+  <!-- html5-qrcode library (CDN — no local file needed) -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <!-- Our code (order matters — dependencies first) -->
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ticketCache.js"></script>
+  <script src="js/scanner.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
