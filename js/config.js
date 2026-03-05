@@ -7,10 +7,10 @@
 const CONFIG = {
   // ── Backend URL ──────────────────────────────────────────────
   // Local development:
-  BACKEND_URL: 'http://localhost:3000',
+  // BACKEND_URL: 'http://localhost:3000',
   //
   // Production (your Render deployment):
-  // BACKEND_URL: 'https://nomada-tickets-com-test.onrender.com',
+   BACKEND_URL: 'https://nomada-tickets-com-test.onrender.com',
 
   // ── Ticket Refresh ──────────────────────────────────────────
   // How often to re-fetch all valid tickets from the backend.
