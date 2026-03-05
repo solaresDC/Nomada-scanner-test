@@ -428,6 +428,9 @@ async function handleRefresh() {
   // Update persistent counter after refresh
   updateTicketCounterBar();
 
+  // Also update history panel if it's open
+  updateFullHistoryCounters();
+
   isRefreshing = false;
 }
 
@@ -448,6 +451,9 @@ function onTicketRefresh(count) {
 
   // Update persistent counter after auto-refresh
   updateTicketCounterBar();
+
+  // Also update history panel if it's open
+  updateFullHistoryCounters();
 }
 
 // ─── Screen Switching ─────────────────────────────────────

@@ -538,60 +538,50 @@ html, body {
   flex-shrink: 0;
 }
 
-/* Scan List */
+/* Scan List — CSS Grid for perfect column alignment */
 .history-list {
   flex: 1;
   overflow-y: auto;
-  padding: 8px 8px 8px 12px;
+  padding: 8px 12px;
 }
 
 .history-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px 80px 10px 52px 70px 72px 38px;
   align-items: center;
-  gap: 6px;
-  padding: 8px 4px;
+  gap: 4px;
+  padding: 8px 0;
   border-bottom: 1px solid #1a1a1a;
   font-size: 0.72rem;
 }
 
 .history-num {
   color: #555;
-  min-width: 22px;
   text-align: right;
-  flex-shrink: 0;
 }
 
 .history-id {
   color: #aaa;
   font-family: monospace;
-  min-width: 75px;
-  flex-shrink: 0;
 }
 
 .history-type {
-  min-width: 50px;
-  flex-shrink: 0;
+  /* no extra styles needed — grid handles width */
 }
 
 .history-status {
   color: #888;
-  min-width: 55px;
   font-size: 0.7rem;
-  flex-shrink: 0;
 }
 
 .history-time {
   color: #666;
-  min-width: 65px;
   font-size: 0.7rem;
-  flex-shrink: 0;
 }
 
 .history-ago {
   color: #555;
-  min-width: 35px;
   text-align: right;
-  flex-shrink: 0;
 }
 
 .history-empty {
