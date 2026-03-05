@@ -9,6 +9,7 @@
  * - Language selector
  * - Hand preference toggle
  * - Refresh button + status
+ * - Persistent ticket counter bar
  */
 
 // ─── Scan History State ───────────────────────────────────
@@ -125,6 +126,7 @@ function addToHistory(qrToken, ticketType, status) {
 
   updateMiniHistory();
   updateFullHistoryCounters();
+  updateTicketCounterBar();
 }
 
 /**
@@ -175,10 +177,12 @@ function updateFullHistoryCounters() {
 
   const admittedEl = document.getElementById('history-admitted-count');
   const rejectedEl = document.getElementById('history-rejected-count');
+  const remainingEl = document.getElementById('history-remaining-count');
   const breakdownEl = document.getElementById('history-breakdown');
 
   if (admittedEl) admittedEl.textContent = accepted.length;
   if (rejectedEl) rejectedEl.textContent = rejected.length;
+  if (remainingEl) remainingEl.textContent = getCacheSize();
   if (breakdownEl) {
     breakdownEl.innerHTML =
       `<span style="color:#2563EB">${getText('historyMen')}: ${men}</span>` +
@@ -259,6 +263,33 @@ function startHistoryTimer() {
   }, 1000);
 }
 
+// ─── Persistent Ticket Counter Bar ────────────────────────
+
+/**
+ * Update the persistent ticket counter bar (always visible below top bar).
+ * Shows how many valid tickets remain in the local cache.
+ */
+function updateTicketCounterBar() {
+  const textEl = document.getElementById('ticket-counter-text');
+  const labelEl = document.getElementById('ticket-counter-label');
+
+  if (textEl) {
+    const prevValue = textEl.textContent;
+    const newValue = String(getCacheSize());
+    textEl.textContent = newValue;
+
+    // Flash animation when the number changes
+    if (prevValue !== newValue) {
+      textEl.classList.add('counter-flash');
+      setTimeout(() => textEl.classList.remove('counter-flash'), 300);
+    }
+  }
+
+  if (labelEl) {
+    labelEl.textContent = getText('ticketCountRemaining');
+  }
+}
+
 // ─── History Panel (Slide-Up) ─────────────────────────────
 
 function openHistoryPanel() {
@@ -327,11 +358,11 @@ function applyLanguage() {
   // Update hand toggle
   applyHandPreference();
 
-  // Update history panel
+  // Update history panel title
   const histTitle = document.getElementById('history-panel-title');
   if (histTitle) histTitle.textContent = getText('historyTitle');
 
-  // Update history button text languge
+  // Update history button text
   const histBtn = document.getElementById('history-btn');
   if (histBtn) histBtn.textContent = getText('historyTitle');
 
@@ -342,11 +373,16 @@ function applyLanguage() {
   renderFullHistory();
   updateFullHistoryCounters();
 
-  // Update history counters labels
+  // Update history counter labels
   const admLabel = document.getElementById('history-admitted-label');
   if (admLabel) admLabel.textContent = getText('historyTotalAdmitted');
   const rejLabel = document.getElementById('history-rejected-label');
   if (rejLabel) rejLabel.textContent = getText('historyRejected');
+  const remLabel = document.getElementById('history-remaining-label');
+  if (remLabel) remLabel.textContent = getText('historyRemaining');
+
+  // Update persistent ticket counter bar
+  updateTicketCounterBar();
 }
 
 // ─── Refresh Button ───────────────────────────────────────
@@ -380,6 +416,9 @@ async function handleRefresh() {
     showPinScreen();
   }
 
+  // Update persistent counter after refresh
+  updateTicketCounterBar();
+
   isRefreshing = false;
 }
 
@@ -391,6 +430,9 @@ function onTicketRefresh(count) {
     refreshStatus.classList.add('visible');
     setTimeout(() => refreshStatus.classList.remove('visible'), 2000);
   }
+
+  // Update persistent counter after auto-refresh
+  updateTicketCounterBar();
 }
 
 // ─── Screen Switching ─────────────────────────────────────

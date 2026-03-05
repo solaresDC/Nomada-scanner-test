@@ -103,6 +103,9 @@ async function startScanningMode() {
     setTimeout(() => refreshStatus.classList.remove('visible'), 2000);
   }
 
+  // Update the persistent counter bar with initial count
+  updateTicketCounterBar();
+
   // Start auto-refresh (every 10 minutes)
   startAutoRefresh();
 

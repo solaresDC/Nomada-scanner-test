@@ -224,6 +224,26 @@ html, body {
   opacity: 1;
 }
 
+.ticket-counter-bar {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #888;
+  padding: 4px 0;
+  background: #111;
+  border-bottom: 1px solid #1a1a1a;
+  flex-shrink: 0;
+  transition: color 0.3s;
+}
+
+.ticket-counter-bar .counter-flash {
+  color: #00d9ff;
+}
+
+#ticket-counter-text {
+  font-weight: 700;
+  color: #00d9ff;
+}
+
 /* Scanner Body (camera area) */
 .scanner-body {
   flex: 1;
@@ -494,11 +514,18 @@ html, body {
 .history-counter-value {
   font-size: 2rem;
   font-weight: 800;
-  color: #00d9ff;
 }
 
 .history-counter-rejected {
   color: #DC2626;
+}
+
+.history-counter-admitted {
+  color: #22C55E;
+}
+
+.history-counter-remaining {
+  color: #00d9ff;
 }
 
 .history-breakdown {

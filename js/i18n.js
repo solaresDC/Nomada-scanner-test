@@ -47,6 +47,10 @@ const TRANSLATIONS = {
     timeMinutes: 'm',
     timeHours: 'h',
     timeDayPlus: '24h+',
+
+    // Persistent ticket counter
+    ticketCountRemaining: 'remaining',
+    historyRemaining: 'Remaining',
   },
 
   es: {
@@ -85,6 +89,9 @@ const TRANSLATIONS = {
     timeMinutes: 'm',
     timeHours: 'h',
     timeDayPlus: '24h+',
+
+    ticketCountRemaining: 'restantes',
+    historyRemaining: 'Restantes',
   },
 
   'pt-BR': {
@@ -123,6 +130,9 @@ const TRANSLATIONS = {
     timeMinutes: 'm',
     timeHours: 'h',
     timeDayPlus: '24h+',
+    
+    ticketCountRemaining: 'restantes',
+    historyRemaining: 'Restantes',
   },
 };
 

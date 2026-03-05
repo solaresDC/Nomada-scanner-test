@@ -82,6 +82,11 @@
     <!-- Refresh status message -->
     <div class="refresh-status" id="refresh-status"></div>
 
+    <!-- Persistent ticket counter (always visible) -->
+    <div class="ticket-counter-bar" id="ticket-counter-bar">
+      <span id="ticket-counter-text">0</span> <span id="ticket-counter-label">remaining</span>
+    </div>
+
     <!-- Camera Viewfinder -->
     <div class="scanner-body">
       <div id="scanner-viewfinder" class="scanner-viewfinder"></div>
@@ -125,8 +130,12 @@
     <!-- Counters -->
     <div class="history-counters">
       <div class="history-counter-block">
+        <span class="history-counter-label" id="history-remaining-label">Remaining</span>
+        <span class="history-counter-value history-counter-remaining" id="history-remaining-count">0</span>
+      </div>
+      <div class="history-counter-block">
         <span class="history-counter-label" id="history-admitted-label">Total Admitted</span>
-        <span class="history-counter-value" id="history-admitted-count">0</span>
+        <span class="history-counter-value history-counter-admitted" id="history-admitted-count">0</span>
       </div>
       <div class="history-counter-block">
         <span class="history-counter-label" id="history-rejected-label">Rejected</span>
