@@ -166,10 +166,10 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
+  padding-top: calc(8px + env(safe-area-inset-top, 0px));
   background: #111;
   border-bottom: 1px solid #222;
   flex-shrink: 0;
-  z-index: 10;
 }
 
 .topbar-title {
