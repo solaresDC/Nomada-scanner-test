@@ -37,20 +37,9 @@ async function initScanner(containerId, onScan) {
       return;
     }
 
-    // Prefer the rear camera (environment facing)
-    // On phones, the rear camera is usually the second one or labeled "environment"
-    let cameraId = cameras[0].id;
-    for (const cam of cameras) {
-      if (cam.label.toLowerCase().includes('back') ||
-          cam.label.toLowerCase().includes('rear') ||
-          cam.label.toLowerCase().includes('environment')) {
-        cameraId = cam.id;
-        break;
-      }
-    }
-
-    await html5QrCode.start(
-      cameraId,
+        await html5QrCode.start(
+        { facingMode: "environment" },
+        
       {
         fps: CONFIG.SCAN_FPS,
         qrbox: (viewfinderWidth, viewfinderHeight) => {
