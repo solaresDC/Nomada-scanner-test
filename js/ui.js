@@ -228,7 +228,6 @@ function renderFullHistory() {
     }
 
     return `<div class="history-row">
-      <span class="history-num">${num}</span>
       <span class="history-id">${shortId}</span>
       <span class="mini-dot" style="background:${dotColor}"></span>
       <span class="history-type">${typeLabel}</span>
