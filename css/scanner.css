@@ -386,8 +386,8 @@ html, body {
 
 /* ── Scanner Footer ────────────────────────── */
 .scanner-footer {
-  padding: 10px 12px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  padding: 4px 12px;
+  padding-bottom: calc(4px + env(safe-area-inset-bottom, 0px));
   background: #111;
   border-top: 1px solid #222;
   flex-shrink: 0;
@@ -427,7 +427,7 @@ html, body {
 .history-btn {
   display: block;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 4px;
   padding: 8px;
   border: 1px solid #333;
   border-radius: 8px;
