@@ -334,6 +334,10 @@ function applyLanguage() {
   // Update mini history
   updateMiniHistory();
 
+  // Re-render the full history list so row labels translate
+  renderFullHistory();
+  updateFullHistoryCounters();
+
   // Update history counters labels
   const admLabel = document.getElementById('history-admitted-label');
   if (admLabel) admLabel.textContent = getText('historyTotalAdmitted');
