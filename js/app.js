@@ -169,16 +169,14 @@ async function onQRScanned(qrToken) {
       addToHistory(qrToken, serverResult.ticketType, 'accepted');
       updateTicketCounterBar();
 
-    } else if (serverResult.result === 'rejected' && serverResult.alreadyUsed) {
+    } else if (serverResult.result === 'rejected') {
       // Server says this ticket exists but was already scanned
       showScanResult('rejected');
       addToHistory(qrToken, serverResult.ticketType || null, 'rejected');
 
     } else {
-      // Server says this QR doesn't exist in the database at all,
-      // OR the server is unreachable (network error)
-      // Show grey — not a Nomada ticket (or misread)
-      // Do NOT add to history — this is trash data
+      // 'not_found' or 'error' — not a Nomada ticket (or misread)
+      // Show grey — do NOT add to history (trash data)
       showScanResult('not_valid');
     }
   }
