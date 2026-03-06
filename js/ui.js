@@ -2,7 +2,7 @@
  * UI Module
  *
  * Handles all visual components of the scanner:
- * - Color overlays (scan results)
+ * - Color overlays (scan results: blue/pink/red/grey)
  * - Dismiss/Next button (hand preference aware)
  * - Mini history bar (last 2-3 scans)
  * - Full history panel (slide-up sheet with drag-to-close)
@@ -10,6 +10,7 @@
  * - Hand preference toggle
  * - Refresh button + status
  * - Persistent ticket counter bar
+ * - "Checking..." intermediate state for server verification
  */
 
 // ─── Scan History State ───────────────────────────────────
@@ -46,8 +47,33 @@ function initUI(onDismiss) {
 }
 
 /**
+ * Show the "Checking..." state while waiting for server response.
+ * No color, just text on a semi-transparent overlay so the bouncer
+ * knows the scanner is working.
+ */
+function showCheckingState() {
+  const overlay = document.getElementById('scan-overlay');
+  const overlayText = document.getElementById('scan-overlay-text');
+  const dismissBtn = document.getElementById('dismiss-btn');
+
+  if (!overlay || !overlayText) return;
+
+  // Remove all previous result classes
+  overlay.classList.remove('result-female', 'result-male', 'result-rejected', 'result-not-valid');
+
+  overlayText.textContent = getText('scanChecking');
+  overlay.classList.add('result-checking');
+  overlay.classList.add('visible');
+
+  // Hide dismiss button during checking — no action to take yet
+  if (dismissBtn) {
+    dismissBtn.classList.remove('visible');
+  }
+}
+
+/**
  * Show the scan result overlay.
- * @param {'accepted_female'|'accepted_male'|'rejected'|'not_found'} result
+ * @param {'accepted_female'|'accepted_male'|'rejected'|'not_valid'} result
  */
 function showScanResult(result) {
   const overlay = document.getElementById('scan-overlay');
@@ -56,8 +82,8 @@ function showScanResult(result) {
 
   if (!overlay || !overlayText) return;
 
-  // Remove all previous result classes
-  overlay.classList.remove('result-female', 'result-male', 'result-rejected');
+  // Remove all previous result classes (including checking)
+  overlay.classList.remove('result-female', 'result-male', 'result-rejected', 'result-not-valid', 'result-checking');
 
   let text = '';
   let resultClass = '';
@@ -75,13 +101,13 @@ function showScanResult(result) {
       text = getText('scanRejected');
       resultClass = 'result-rejected';
       break;
-    case 'not_found':
-      text = getText('scanNotFound');
-      resultClass = 'result-rejected';
+    case 'not_valid':
+      text = getText('scanNotValid');
+      resultClass = 'result-not-valid';
       break;
     default:
-      text = getText('scanNotFound');
-      resultClass = 'result-rejected';
+      text = getText('scanNotValid');
+      resultClass = 'result-not-valid';
   }
 
   overlayText.textContent = text;
@@ -102,7 +128,7 @@ function hideScanResult() {
   const dismissBtn = document.getElementById('dismiss-btn');
 
   if (overlay) {
-    overlay.classList.remove('visible', 'result-female', 'result-male', 'result-rejected');
+    overlay.classList.remove('visible', 'result-female', 'result-male', 'result-rejected', 'result-not-valid', 'result-checking');
   }
   if (dismissBtn) {
     dismissBtn.classList.remove('visible');
@@ -115,6 +141,7 @@ function hideScanResult() {
 
 /**
  * Add a scan to the history.
+ * Only adds accepted and rejected scans — NOT invalid/grey QR codes.
  * @param {string} qrToken
  * @param {string} ticketType — 'female' or 'male' or null
  * @param {string} status — 'accepted' or 'rejected'
@@ -311,7 +338,6 @@ function closeHistoryPanel() {
   }
 }
 
-
 // ─── History Panel Drag-to-Close ──────────────────────────
 
 let dragStartY = 0;
@@ -325,15 +351,13 @@ function setupDragToClose() {
   if (!handle || !panel) return;
 
   handle.addEventListener('touchstart', (e) => {
-    // Only start drag if panel is open
     if (!panel.classList.contains('open')) return;
     isDragging = true;
     dragStartY = e.touches[0].clientY;
     lastDragY = dragStartY;
     dragStartTime = Date.now();
     panel.style.transition = 'none';
-    e.preventDefault();
-  });
+  }, { passive: true });
 
   handle.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
@@ -343,39 +367,35 @@ function setupDragToClose() {
     if (diff > 0) {
       panel.style.transform = `translateY(${diff}px)`;
     }
-    e.preventDefault();
-  });
+  }, { passive: true });
 
-  handle.addEventListener('touchend', (e) => {
+  handle.addEventListener('touchend', () => {
     if (!isDragging) return;
     isDragging = false;
 
     const diff = lastDragY - dragStartY;
     const elapsed = Date.now() - dragStartTime;
-    const velocity = diff / elapsed; // pixels per millisecond
+    const velocity = elapsed > 0 ? diff / elapsed : 0;
 
     panel.style.transition = 'transform 0.25s ease-out';
 
-    // Close if: quick flick (velocity > 0.3) OR dragged more than 50px
     if (velocity > 0.3 || diff > 50) {
       panel.classList.remove('open');
       panel.style.transform = '';
     } else {
-      // Snap back
       panel.style.transform = 'translateY(0)';
-      // Reset transform after animation
       setTimeout(() => {
-        panel.style.transform = '';
+        if (panel.classList.contains('open')) {
+          panel.style.transform = '';
+        }
       }, 250);
     }
 
     dragStartY = 0;
     lastDragY = 0;
     dragStartTime = 0;
-    e.preventDefault();
   });
 }
-
 
 // ─── Hand Preference ──────────────────────────────────────
 

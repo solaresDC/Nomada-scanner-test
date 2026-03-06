@@ -353,7 +353,11 @@ html, body {
 }
 
 .scan-overlay.result-not-valid {
-  background: #555;            /* Grey */
+  background: #555;            /* Grey — not a Nomada ticket */
+}
+
+.scan-overlay.result-checking {
+  background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent — "Checking..." */
 }
 
 .scan-overlay-text {

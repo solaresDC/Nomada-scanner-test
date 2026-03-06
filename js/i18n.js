@@ -20,6 +20,8 @@ const TRANSLATIONS = {
     scanAcceptedMale: 'Accepted — Male',
     scanRejected: 'Already Scanned',
     scanNotFound: 'QR Not Recognized',
+    scanNotValid: 'Not Valid',
+    scanChecking: 'Checking...',
     scanConfirming: 'Confirming...',
 
     // Controls
@@ -66,6 +68,8 @@ const TRANSLATIONS = {
     scanAcceptedMale: 'Aceptado — Hombre',
     scanRejected: 'Ya Escaneado',
     scanNotFound: 'QR No Reconocido',
+    scanNotValid: 'No Válido',
+    scanChecking: 'Verificando...',
     scanConfirming: 'Confirmando...',
 
     refreshBtn: 'Actualizar',
@@ -108,6 +112,8 @@ const TRANSLATIONS = {
     scanAcceptedMale: 'Aceito — Masculino',
     scanRejected: 'Já Escaneado',
     scanNotFound: 'QR Não Reconhecido',
+    scanNotValid: 'Não Válido',
+    scanChecking: 'Verificando...',
     scanConfirming: 'Confirmando...',
 
     refreshBtn: 'Atualizar',

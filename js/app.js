@@ -14,9 +14,12 @@
  *
  * 3. Scanning:
  *    → Camera detects QR → check local Map (instant)
- *    → Show color overlay (blue/pink/red)
- *    → Background: report scan to backend
- *    → Door person taps "Next" → resume camera
+ *    → If found locally: show blue/pink instantly, report in background
+ *    → If NOT found locally: show "Checking...", ask server, then:
+ *       - Server says valid ticket → show blue/pink (accepted)
+ *       - Server says already used → show red (duplicate)
+ *       - Server says doesn't exist → show grey (not valid)
+ *       - Server unreachable → show grey (can't verify)
  */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -58,7 +61,6 @@ function setupPinPad() {
   if (backspaceBtn) {
     backspaceBtn.addEventListener('click', removeDigit);
   }
-  
 }
 
 /**
@@ -112,6 +114,10 @@ async function startScanningMode() {
 /**
  * Called when the camera decodes a QR code.
  * This is where the magic happens.
+ *
+ * Two paths:
+ * A) Found in local Map → instant color, background server report
+ * B) Not in local Map → "Checking..." → wait for server → show correct color
  */
 async function onQRScanned(qrToken) {
   // Pause scanning immediately (no more detections while showing result)
@@ -121,7 +127,7 @@ async function onQRScanned(qrToken) {
   const localResult = checkTicket(qrToken);
 
   if (localResult.found) {
-    // Ticket found in cache — show the color
+    // ─── PATH A: Found locally — instant response ─────────
     const resultType = localResult.ticketType === 'female'
       ? 'accepted_female'
       : 'accepted_male';
@@ -129,7 +135,7 @@ async function onQRScanned(qrToken) {
     showScanResult(resultType);
     addToHistory(qrToken, localResult.ticketType, 'accepted');
 
-    // Step 2: Report to backend in background (non-blocking)
+    // Report to backend in background (non-blocking)
     reportScan(qrToken).then(serverResult => {
       // If the server says it was already used (scanned by another phone),
       // correct the display to red
@@ -145,11 +151,35 @@ async function onQRScanned(qrToken) {
     });
 
   } else {
-    // Not in cache — either already scanned or invalid
-    showScanResult('rejected');
-    addToHistory(qrToken, null, 'rejected');
+    // ─── PATH B: Not in local Map — ask server ────────────
+    // Show "Checking..." while we wait for the server
+    showCheckingState();
 
-    // Still report to backend for logging
-    reportScan(qrToken);
+    // Ask the server what this QR code is
+    const serverResult = await reportScan(qrToken);
+
+    if (serverResult.result === 'accepted') {
+      // Server says it's a valid ticket we didn't know about
+      // (purchased after last refresh)
+      const resultType = serverResult.ticketType === 'female'
+        ? 'accepted_female'
+        : 'accepted_male';
+
+      showScanResult(resultType);
+      addToHistory(qrToken, serverResult.ticketType, 'accepted');
+      updateTicketCounterBar();
+
+    } else if (serverResult.result === 'rejected' && serverResult.alreadyUsed) {
+      // Server says this ticket exists but was already scanned
+      showScanResult('rejected');
+      addToHistory(qrToken, serverResult.ticketType || null, 'rejected');
+
+    } else {
+      // Server says this QR doesn't exist in the database at all,
+      // OR the server is unreachable (network error)
+      // Show grey — not a Nomada ticket (or misread)
+      // Do NOT add to history — this is trash data
+      showScanResult('not_valid');
+    }
   }
 }
