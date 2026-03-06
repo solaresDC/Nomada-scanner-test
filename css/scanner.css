@@ -149,8 +149,9 @@ html, body {
 }
 
 .pin-key:active {
-  background: rgba(0, 217, 255, 0.15);
+  background: rgba(0, 217, 255, 0.25);
   border-color: #00d9ff;
+  color: #00d9ff;
 }
 
 .pin-key:disabled {
@@ -431,7 +432,7 @@ html, body {
 
 .mini-history::before {
   content: '›';
-  color: #00d9ff;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
   flex-shrink: 0;
@@ -512,7 +513,7 @@ html, body {
 }
 
 .history-drag-line {
-  width: 48px;
+  width: 56px;
   height: 4px;
   border-radius: 2px;
   background: #555;
@@ -520,7 +521,7 @@ html, body {
 }
 
 .history-drag-handle:active .history-drag-line {
-  width: 64px;
+  width: 76px;
 }
 
 .history-panel-header {
