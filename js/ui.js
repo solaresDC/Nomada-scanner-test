@@ -314,7 +314,6 @@ function closeHistoryPanel() {
 // ─── History Panel Drag-to-Close ──────────────────────────
 
 let dragStartY = 0;
-let dragCurrentY = 0;
 let isDragging = false;
 
 function setupDragToClose() {
@@ -325,36 +324,41 @@ function setupDragToClose() {
   handle.addEventListener('touchstart', (e) => {
     isDragging = true;
     dragStartY = e.touches[0].clientY;
-    dragCurrentY = dragStartY;
     panel.style.transition = 'none';
   }, { passive: true });
 
-  handle.addEventListener('touchmove', (e) => {
+  document.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
-    dragCurrentY = e.touches[0].clientY;
-    const diff = dragCurrentY - dragStartY;
-    // Only allow dragging downward
+    const diff = e.touches[0].clientY - dragStartY;
     if (diff > 0) {
       panel.style.transform = `translateY(${diff}px)`;
     }
   }, { passive: true });
 
-  handle.addEventListener('touchend', () => {
+  document.addEventListener('touchend', (e) => {
     if (!isDragging) return;
     isDragging = false;
-    panel.style.transition = 'transform 0.3s ease-out';
-    const diff = dragCurrentY - dragStartY;
-    if (diff > 80) {
-      // Dragged far enough — close the panel
+
+    // Get the final position
+    const panelRect = panel.getBoundingClientRect();
+    const screenHeight = window.innerHeight;
+    const draggedPortion = panelRect.top / screenHeight;
+
+    // Smooth close animation
+    panel.style.transition = 'transform 0.25s ease-out';
+
+    if (draggedPortion > 0.35) {
+      // Dragged past 35% of screen — close with fluid animation
       closeHistoryPanel();
     } else {
-      // Snap back to open position
+      // Snap back
       panel.style.transform = 'translateY(0)';
     }
+
     dragStartY = 0;
-    dragCurrentY = 0;
   });
 }
+
 
 // ─── Hand Preference ──────────────────────────────────────
 

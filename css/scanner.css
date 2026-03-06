@@ -222,7 +222,7 @@ html, body {
   font-size: 0.75rem;
   color: #00d9ff;
   padding: 4px 0;
-  background: #0a0a0a;
+  background: #111; /*#0a0a0a for better contrast during refresh*/
   opacity: 0;
   transition: opacity 0.3s;
   flex-shrink: 0;
