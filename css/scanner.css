@@ -164,6 +164,12 @@ html, body {
   border-color: #222;
 }
 
+.pin-key-small {
+  width: 62px;
+  height: 62px;
+  font-size: 1.1rem;
+}
+
 /* ════════════════════════════════════════════
    SCANNER SCREEN
    ════════════════════════════════════════════ */

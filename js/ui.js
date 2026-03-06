@@ -311,9 +311,12 @@ function closeHistoryPanel() {
   }
 }
 
+
 // ─── History Panel Drag-to-Close ──────────────────────────
 
 let dragStartY = 0;
+let dragStartTime = 0;
+let lastDragY = 0;
 let isDragging = false;
 
 function setupDragToClose() {
@@ -322,40 +325,54 @@ function setupDragToClose() {
   if (!handle || !panel) return;
 
   handle.addEventListener('touchstart', (e) => {
+    // Only start drag if panel is open
+    if (!panel.classList.contains('open')) return;
     isDragging = true;
     dragStartY = e.touches[0].clientY;
+    lastDragY = dragStartY;
+    dragStartTime = Date.now();
     panel.style.transition = 'none';
-  }, { passive: true });
+    e.preventDefault();
+  });
 
-  document.addEventListener('touchmove', (e) => {
+  handle.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
-    const diff = e.touches[0].clientY - dragStartY;
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - dragStartY;
+    lastDragY = currentY;
     if (diff > 0) {
       panel.style.transform = `translateY(${diff}px)`;
     }
-  }, { passive: true });
+    e.preventDefault();
+  });
 
-  document.addEventListener('touchend', (e) => {
+  handle.addEventListener('touchend', (e) => {
     if (!isDragging) return;
     isDragging = false;
 
-    // Get the final position
-    const panelRect = panel.getBoundingClientRect();
-    const screenHeight = window.innerHeight;
-    const draggedPortion = panelRect.top / screenHeight;
+    const diff = lastDragY - dragStartY;
+    const elapsed = Date.now() - dragStartTime;
+    const velocity = diff / elapsed; // pixels per millisecond
 
-    // Smooth close animation
     panel.style.transition = 'transform 0.25s ease-out';
 
-    if (draggedPortion > 0.35) {
-      // Dragged past 35% of screen — close with fluid animation
-      closeHistoryPanel();
+    // Close if: quick flick (velocity > 0.3) OR dragged more than 50px
+    if (velocity > 0.3 || diff > 50) {
+      panel.classList.remove('open');
+      panel.style.transform = '';
     } else {
       // Snap back
       panel.style.transform = 'translateY(0)';
+      // Reset transform after animation
+      setTimeout(() => {
+        panel.style.transform = '';
+      }, 250);
     }
 
     dragStartY = 0;
+    lastDragY = 0;
+    dragStartTime = 0;
+    e.preventDefault();
   });
 }
 
