@@ -5,7 +5,7 @@
  * - Color overlays (scan results)
  * - Dismiss/Next button (hand preference aware)
  * - Mini history bar (last 2-3 scans)
- * - Full history panel (slide-up sheet)
+ * - Full history panel (slide-up sheet with drag-to-close)
  * - Language selector
  * - Hand preference toggle
  * - Refresh button + status
@@ -207,7 +207,6 @@ function renderFullHistory() {
   }
 
   list.innerHTML = scanHistory.map((scan, index) => {
-    const num = scanHistory.length - index;
     const shortId = '#' + scan.qrToken.substring(0, 4) + '...' + scan.qrToken.slice(-2);
     const timeStr = scan.time.toLocaleTimeString();
     const agoStr = formatTimeAgo(scan.time);
@@ -298,12 +297,63 @@ function openHistoryPanel() {
   renderFullHistory();
   updateFullHistoryCounters();
   const panel = document.getElementById('history-panel');
-  if (panel) panel.classList.add('open');
+  if (panel) {
+    panel.style.transition = 'transform 0.3s ease-out';
+    panel.classList.add('open');
+  }
 }
 
 function closeHistoryPanel() {
   const panel = document.getElementById('history-panel');
-  if (panel) panel.classList.remove('open');
+  if (panel) {
+    panel.style.transition = 'transform 0.3s ease-out';
+    panel.classList.remove('open');
+  }
+}
+
+// ─── History Panel Drag-to-Close ──────────────────────────
+
+let dragStartY = 0;
+let dragCurrentY = 0;
+let isDragging = false;
+
+function setupDragToClose() {
+  const handle = document.getElementById('history-drag-handle');
+  const panel = document.getElementById('history-panel');
+  if (!handle || !panel) return;
+
+  handle.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    dragStartY = e.touches[0].clientY;
+    dragCurrentY = dragStartY;
+    panel.style.transition = 'none';
+  }, { passive: true });
+
+  handle.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    dragCurrentY = e.touches[0].clientY;
+    const diff = dragCurrentY - dragStartY;
+    // Only allow dragging downward
+    if (diff > 0) {
+      panel.style.transform = `translateY(${diff}px)`;
+    }
+  }, { passive: true });
+
+  handle.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    panel.style.transition = 'transform 0.3s ease-out';
+    const diff = dragCurrentY - dragStartY;
+    if (diff > 80) {
+      // Dragged far enough — close the panel
+      closeHistoryPanel();
+    } else {
+      // Snap back to open position
+      panel.style.transform = 'translateY(0)';
+    }
+    dragStartY = 0;
+    dragCurrentY = 0;
+  });
 }
 
 // ─── Hand Preference ──────────────────────────────────────
@@ -424,10 +474,8 @@ async function handleRefresh() {
     showPinScreen();
   }
 
-  // Update persistent counter after refresh
+  // Update persistent counter and history panel (if open) after refresh
   updateTicketCounterBar();
-
-  // Also update history panel if it's open
   updateFullHistoryCounters();
 
   isRefreshing = false;
@@ -448,10 +496,8 @@ function onTicketRefresh(count) {
     setTimeout(() => refreshStatus.classList.remove('visible'), 2000);
   }
 
-  // Update persistent counter after auto-refresh
+  // Update persistent counter and history panel (if open) after auto-refresh
   updateTicketCounterBar();
-
-  // Also update history panel if it's open
   updateFullHistoryCounters();
 }
 
@@ -504,4 +550,7 @@ function setupUIListeners() {
   if (refreshBtn) {
     refreshBtn.addEventListener('click', handleRefresh);
   }
+
+  // Drag-to-close for history panel
+  setupDragToClose();
 }

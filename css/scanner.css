@@ -11,7 +11,6 @@
   padding: 0;
 }
 
-
 html, body {
   height: 100%;
   overflow: hidden;            /* Prevent page scroll — we handle everything */
@@ -19,11 +18,11 @@ html, body {
   background: #0a0a0a;
   color: #ffffff;
   -webkit-tap-highlight-color: transparent;
-  /* Prevent text selection and long-press popups - three lines below */
+  /* Prevent text selection and long-press popups */
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
-  /* Prevent double-tap zoom - line below */
+  /* Prevent double-tap zoom */
   touch-action: manipulation;
 }
 
@@ -128,7 +127,7 @@ html, body {
 /* Number Pad */
 .pin-pad {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
+  grid-template-columns: repeat(3, 82px);
   gap: 12px;
 }
 
@@ -396,7 +395,6 @@ html, body {
 /* ── Scanner Footer ────────────────────────── */
 .scanner-footer {
   padding: 8px 12px 6px;
-  /*padding-bottom: calc(1px + env(safe-area-inset-bottom, 0px));*/
   background: #111;
   border-top: 1px solid #222;
   flex-shrink: 0;
@@ -476,11 +474,31 @@ html, body {
   transform: translateY(0);
 }
 
+/* Drag handle for swipe-to-close */
+.history-drag-handle {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 4px;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+.history-drag-handle:active {
+  cursor: grabbing;
+}
+
+.history-drag-line {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: #555;
+}
+
 .history-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 8px 20px 16px;
   border-bottom: 1px solid #222;
   flex-shrink: 0;
 }
@@ -495,8 +513,8 @@ html, body {
   height: 36px;
   border: none;
   border-radius: 50%;
-  background: #222;
-  color: #aaa;
+  background: #333;
+  color: #ccc;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
@@ -572,7 +590,7 @@ html, body {
 }
 
 .history-type {
-  /* no extra styles needed — grid handles width */
+  /* grid handles width */
 }
 
 .history-status {
