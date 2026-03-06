@@ -21,7 +21,7 @@ const TRANSLATIONS = {
     scanRejected: 'Already Scanned',
     scanNotFound: 'QR Not Recognized',
     scanNotValid: 'Not Valid',
-    scanChecking: 'Checking...',
+    scanChecking: 'Scanning...',
     scanConfirming: 'Confirming...',
 
     // Controls
