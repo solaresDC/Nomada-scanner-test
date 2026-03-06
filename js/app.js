@@ -58,14 +58,7 @@ function setupPinPad() {
   if (backspaceBtn) {
     backspaceBtn.addEventListener('click', removeDigit);
   }
-
-  // Confirm key (optional — PIN auto-submits on 4th digit)
-  const confirmBtn = document.querySelector('.pin-key[data-action="confirm"]');
-  if (confirmBtn) {
-    confirmBtn.addEventListener('click', () => {
-      // Only useful if we want manual submit; auto-submit handles it
-    });
-  }
+  
 }
 
 /**
