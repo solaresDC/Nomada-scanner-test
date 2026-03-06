@@ -168,6 +168,7 @@ html, body {
   width: 62px;
   height: 62px;
   font-size: 1.1rem;
+  justify-self: center;
 }
 
 /* ════════════════════════════════════════════
@@ -228,7 +229,7 @@ html, body {
   font-size: 0.75rem;
   color: #00d9ff;
   padding: 4px 0;
-  background: #111; /*#0a0a0a for better contrast during refresh*/
+  background: #111;
   opacity: 0;
   transition: opacity 0.3s;
   flex-shrink: 0;
@@ -498,6 +499,11 @@ html, body {
   height: 4px;
   border-radius: 2px;
   background: #555;
+  transition: width 0.15s ease-out;
+}
+
+.history-drag-handle:active .history-drag-line {
+  width: 50px;
 }
 
 .history-panel-header {
