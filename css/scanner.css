@@ -169,6 +169,7 @@ html, body {
   height: 62px;
   font-size: 1.1rem;
   justify-self: center;
+  align-self: center;
 }
 
 /* ════════════════════════════════════════════
@@ -351,6 +352,10 @@ html, body {
   background: #DC2626;         /* Red */
 }
 
+.scan-overlay.result-not-valid {
+  background: #555;            /* Grey */
+}
+
 .scan-overlay-text {
   font-size: 1.2rem;
   font-weight: 800;
@@ -495,7 +500,7 @@ html, body {
 }
 
 .history-drag-line {
-  width: 36px;
+  width: 48px;
   height: 4px;
   border-radius: 2px;
   background: #555;
@@ -503,7 +508,7 @@ html, body {
 }
 
 .history-drag-handle:active .history-drag-line {
-  width: 50px;
+  width: 64px;
 }
 
 .history-panel-header {
