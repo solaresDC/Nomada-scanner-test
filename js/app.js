@@ -61,6 +61,16 @@ function setupPinPad() {
   if (backspaceBtn) {
     backspaceBtn.addEventListener('click', removeDigit);
   }
+
+  // Touch feedback for all pin keys (iOS doesn't show :active reliably)
+  document.querySelectorAll('.pin-key').forEach(btn => {
+    btn.addEventListener('touchstart', () => {
+      btn.classList.add('pin-key-pressed');
+    }, { passive: true });
+    btn.addEventListener('touchend', () => {
+      setTimeout(() => btn.classList.remove('pin-key-pressed'), 150);
+    });
+  });
 }
 
 /**

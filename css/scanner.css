@@ -154,6 +154,12 @@ html, body {
   color: #00d9ff;
 }
 
+.pin-key-pressed {
+  background: rgba(0, 217, 255, 0.25);
+  border-color: #00d9ff;
+  color: #00d9ff;
+}
+
 .pin-key:disabled {
   opacity: 0.3;
   cursor: default;
@@ -369,6 +375,7 @@ html, body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  white-space: pre-line;
 }
 
 /* ── Dismiss / Next Button ─────────────────── */
@@ -513,7 +520,7 @@ html, body {
 }
 
 .history-drag-line {
-  width: 56px;
+  width: 68px;
   height: 4px;
   border-radius: 2px;
   background: #555;
@@ -521,7 +528,7 @@ html, body {
 }
 
 .history-drag-handle:active .history-drag-line {
-  width: 76px;
+  width: 88px;
 }
 
 .history-panel-header {
