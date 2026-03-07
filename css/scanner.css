@@ -156,7 +156,7 @@ html, body {
 
 .pin-key-pressed {
   background: rgba(0, 217, 255, 0.25);
-  border-color: #00d9ff;
+  border-color: #808080;
   color: #00d9ff;
 }
 
@@ -442,6 +442,7 @@ html, body {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
+    position: sticky;
   flex-shrink: 0;
 }
 
