@@ -155,7 +155,7 @@ html, body {
 }
 
 .pin-key-pressed {
-  background: rgba(0, 217, 255, 0.25);
+  background: rgba(255, 255, 255, 0.15);
   border-color: #00d9ff;
   color: #808080;
 }
