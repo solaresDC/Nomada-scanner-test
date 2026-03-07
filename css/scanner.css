@@ -156,8 +156,8 @@ html, body {
 
 .pin-key-pressed {
   background: rgba(0, 217, 255, 0.25);
-  border-color: #808080;
-  color: #00d9ff;
+  border-color: #00d9ff;
+  color: #808080;
 }
 
 .pin-key:disabled {
