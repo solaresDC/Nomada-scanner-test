@@ -443,8 +443,8 @@ html, body {
   overflow-x: hidden;
   white-space: nowrap;
   width: 100%;
-  margin-left: 14px;
-  margin-right: 14px;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .mini-history-wrapper {
