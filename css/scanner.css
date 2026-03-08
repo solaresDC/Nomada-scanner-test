@@ -442,6 +442,8 @@ html, body {
   min-height: 20px;
   overflow-x: auto;
   white-space: nowrap;
+  width: 100%;
+  padding-left: 16px;
 }
 
 .mini-history-wrapper {
