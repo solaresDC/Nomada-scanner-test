@@ -149,9 +149,9 @@ html, body {
 }
 
 .pin-key:active {
-  background: rgba(0, 217, 255, 0.25);
-  border-color: #00d9ff;
-  color: #00d9ff;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #696969;
+  color: #fff;
 }
 /*
 .pin-key-pressed {
@@ -448,14 +448,15 @@ html, body {
   display: flex;
   align-items: center;
   min-height: 20px;
+  position: relative;
 }
 
 .mini-history-arrow {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
-  width: 16px;
-  flex-shrink: 0;
+  position: absolute;
+  left: 0;
 }
 
 .mini-history-item {
