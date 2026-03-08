@@ -440,7 +440,7 @@ html, body {
   font-size: 0.75rem;
   color: #aaa;
   min-height: 20px;
-  overflow-x: auto;
+  overflow-x: hidden;
   white-space: nowrap;
   width: 100%;
   padding-left: 16px;
