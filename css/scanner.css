@@ -444,14 +444,18 @@ html, body {
   white-space: nowrap;
 }
 
-.mini-history::before {
-  content: '›';
+.mini-history-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+.mini-history-arrow {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
-    flex-shrink: 0;
-    position: sticky;
-  left: 0;
+  width: 16px;
+  flex-shrink: 0;
 }
 
 .mini-history-item {
