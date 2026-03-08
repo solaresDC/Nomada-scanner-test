@@ -68,7 +68,7 @@ function setupPinPad() {
       btn.classList.add('pin-key-pressed');
     }, { passive: true });
     btn.addEventListener('touchend', () => {
-      setTimeout(() => btn.classList.remove('pin-key-pressed'), 50);
+      setTimeout(() => btn.classList.remove('pin-key-pressed'), 20);
     });
   });
 }
