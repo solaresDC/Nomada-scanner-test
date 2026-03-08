@@ -443,7 +443,8 @@ html, body {
   overflow-x: hidden;
   white-space: nowrap;
   width: 100%;
-  padding-left: 16px;
+  margin-left: 14px;
+  margin-right: 14px;
 }
 
 .mini-history-wrapper {
@@ -451,6 +452,7 @@ html, body {
   align-items: center;
   min-height: 20px;
   position: relative;
+  overflow: hidden;
 }
 
 .mini-history-arrow {
@@ -459,6 +461,7 @@ html, body {
   font-weight: 700;
   position: absolute;
   left: 0;
+  z-index: 2;
 }
 
 .mini-history-item {
