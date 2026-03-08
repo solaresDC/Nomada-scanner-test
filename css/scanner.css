@@ -461,20 +461,17 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .mini-history-label {
   display: inline-block;
-  max-width: 3.5ch;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: bottom;
-}
-
-@media (min-width: 400px) {
-  .mini-history-label {
-    max-width: none;
-  }
+  flex-shrink: 1;
+  min-width: 3ch;
 }
 
 .mini-dot {
