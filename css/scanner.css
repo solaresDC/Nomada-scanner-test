@@ -153,11 +153,18 @@ html, body {
   border-color: #00d9ff;
   color: #00d9ff;
 }
-
+/*
 .pin-key-pressed {
   background: rgba(255, 255, 255, 0.15);
   border-color: #00d9ff;
   color: #808080;
+}
+*/
+
+.pin-key-pressed {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #696969;
+  color: #fff;
 }
 
 .pin-key:disabled {
@@ -442,8 +449,9 @@ html, body {
   color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
+    flex-shrink: 0;
     position: sticky;
-  flex-shrink: 0;
+  left: 0;
 }
 
 .mini-history-item {
