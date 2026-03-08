@@ -463,6 +463,20 @@ html, body {
   gap: 4px;
 }
 
+.mini-history-label {
+  display: inline-block;
+  max-width: 3.5ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+
+@media (min-width: 400px) {
+  .mini-history-label {
+    max-width: none;
+  }
+}
+
 .mini-dot {
   width: 8px;
   height: 8px;

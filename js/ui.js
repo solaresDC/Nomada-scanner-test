@@ -191,7 +191,7 @@ function updateMiniHistory() {
 
     return `<span class="mini-history-item">
       <span class="mini-dot" style="background:${dotColor}"></span>
-      ${shortId} ${label}
+      ${shortId} <span class="mini-history-label">${label}</span>
     </span>`;
   }).join('<span class="mini-divider">|</span>');
 }
