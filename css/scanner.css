@@ -149,21 +149,14 @@ html, body {
 }
 
 .pin-key:active {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #696969;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #999;
   color: #fff;
 }
-/*
-.pin-key-pressed {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #00d9ff;
-  color: #808080;
-}
-*/
 
 .pin-key-pressed {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: #696969;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #999;
   color: #fff;
 }
 
@@ -443,8 +436,8 @@ html, body {
   overflow-x: hidden;
   white-space: nowrap;
   width: 100%;
-  margin-left: 400px;
-  margin-right: 400px;
+  margin-left: 14px;
+  margin-right: 14px;
 }
 
 .mini-history-wrapper {
